@@ -1,15 +1,16 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import PrivateStack from './src/navigation/PrivateStack';
 import WelcomeStack from './src/navigation/WelcomeStack';
 
 const App: React.FC = () => {
-  const isLogged = true;
+  const isLogged = false;
 
-  if (isLogged) {
-    return <PrivateStack />;
-  }
-
-  return <WelcomeStack />;
+  return (
+    <NavigationContainer>
+      {isLogged ? <PrivateStack /> : <WelcomeStack />}
+    </NavigationContainer>
+  );
 };
 
 export default App;
