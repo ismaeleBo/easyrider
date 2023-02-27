@@ -1,1 +1,1 @@
-export { default } from './AnimatedTextColor';
+export { default, type AnimatedTextColorProps } from './AnimatedTextColor';

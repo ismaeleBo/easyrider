@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Children, ReactNode } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-interface ButtonPrimaryProps {
+export interface ButtonPrimaryProps {
   title: string;
   onPress: () => void;
   customWrapper?: string;

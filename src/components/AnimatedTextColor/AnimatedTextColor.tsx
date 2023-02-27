@@ -8,11 +8,10 @@ import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useDerivedValue,
-  useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 
-interface AnimateTextColorProps {
+export interface AnimatedTextColorProps {
   children: ReactNode;
   colorLight?: string;
   colorDark?: string;
@@ -30,7 +29,7 @@ const AnimatedTextColor = ({
   fontSize = FontSize.SMALL,
   fontWeight = FontWeight.NORMAL,
   textCenter = false,
-}: AnimateTextColorProps): JSX.Element => {
+}: AnimatedTextColorProps): JSX.Element => {
   const { colorScheme } = useColorScheme();
 
   const progress = useDerivedValue(() => {

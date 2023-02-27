@@ -1,1 +1,1 @@
-export { default } from './ButtonPrimary';
+export { default, type ButtonPrimaryProps } from './ButtonPrimary';

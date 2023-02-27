@@ -2,8 +2,13 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from '../../modules/welcome/screens/WelcomeScreen';
 import AppHeader from 'easyrider/src/components/AppHeader';
+import LoginScreen from 'easyrider/src/modules/auth/screens/LoginScreen';
+import {
+  WelcomeStackParamList,
+  WelcomeStackRouteNames,
+} from './WelcomeStackParamList';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<WelcomeStackParamList>();
 
 const WelcomeStack: React.FC = () => {
   return (
@@ -13,7 +18,14 @@ const WelcomeStack: React.FC = () => {
         headerTransparent: true,
       }}
     >
-      <Stack.Screen name='Welcome' component={WelcomeScreen} />
+      <Stack.Screen
+        name={WelcomeStackRouteNames.WELCOME}
+        component={WelcomeScreen}
+      />
+      <Stack.Screen
+        name={WelcomeStackRouteNames.LOGIN}
+        component={LoginScreen}
+      />
     </Stack.Navigator>
   );
 };

@@ -7,3 +7,8 @@ export const LightPalette = {
   BackgroundPrimary: '#7F96FF',
   TextPrimary: '#020100',
 };
+
+export const BaseColor = {
+  WHITE: '#FBFBFB',
+  BLACK: '#020100',
+};
