@@ -9,7 +9,9 @@ const LoginScreen = () => {
       colorLight={LightPalette.BackgroundPrimary}
       colorDark={DarkPalette.BackgroundPrimary}
     >
-      <Text className='text-24'>Login Screen</Text>
+      <View className='justify-center items-center w-full h-full'>
+        <Text className='text-24'>Login Screen</Text>
+      </View>
     </AnimatedContainerFull>
   );
 };

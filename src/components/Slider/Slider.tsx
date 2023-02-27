@@ -7,34 +7,20 @@ import PagerView, {
 } from 'react-native-pager-view';
 import AnimatedTextColor from '../AnimatedTextColor';
 import Indicator from '../Indicator';
-import rider from './images/rider.png';
-import navigation from './images/navigation.png';
-import card from './images/card.png';
-import { FontSize, FontWeight } from 'easyrider/src/assets/typgraphy';
+import { FontSize } from 'easyrider/src/assets/typgraphy';
 import { useLanguage } from 'easyrider/src/hooks/useLanguage';
 
-interface WelcomeSlide {
+export interface Slide {
   image: ImageSourcePropType;
   title: string;
 }
 
-const Pager = () => {
-  const [t] = useLanguage();
+interface PagerProps {
+  data: Slide[];
+}
 
-  const data: WelcomeSlide[] = [
-    {
-      image: rider,
-      title: t('welcomeSlide1'),
-    },
-    {
-      image: navigation,
-      title: t('welcomeSlide2'),
-    },
-    {
-      image: card,
-      title: t('welcomeSlide3'),
-    },
-  ];
+const Pager = ({ data }: PagerProps): JSX.Element => {
+  const [t] = useLanguage();
 
   const pagerRef = useRef<PagerView>(null);
   const [currentPagePosition, setCurrentPagePosition] = useState(0);
@@ -78,7 +64,7 @@ const Pager = () => {
           <Image source={image} resizeMode='contain' className='self-center' />
           <View className='mt-20 px-20'>
             <AnimatedTextColor textCenter fontSize={FontSize.SMALL}>
-              {title}
+              {t(title as never)}
             </AnimatedTextColor>
           </View>
         </View>

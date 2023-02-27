@@ -7,6 +7,7 @@ import {
   WelcomeStackParamList,
   WelcomeStackRouteNames,
 } from './WelcomeStackParamList';
+import SignupScreen from 'easyrider/src/modules/auth/screens/SignupScreen';
 
 const Stack = createNativeStackNavigator<WelcomeStackParamList>();
 
@@ -25,6 +26,10 @@ const WelcomeStack: React.FC = () => {
       <Stack.Screen
         name={WelcomeStackRouteNames.LOGIN}
         component={LoginScreen}
+      />
+      <Stack.Screen
+        name={WelcomeStackRouteNames.SIGNUP}
+        component={SignupScreen}
       />
     </Stack.Navigator>
   );

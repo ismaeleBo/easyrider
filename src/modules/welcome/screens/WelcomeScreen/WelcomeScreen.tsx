@@ -9,12 +9,12 @@ import AnimatedTextColor from 'easyrider/src/components/AnimatedTextColor';
 import { FontSize, FontWeight } from 'easyrider/src/assets/typgraphy';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import AnimatedNavigationButton from 'easyrider/src/components/AnimatedNavigationButton';
 import {
   WelcomeStackParamList,
   WelcomeStackRouteNames,
 } from 'easyrider/src/navigation/WelcomeStack/WelcomeStackParamList';
 import Slider from 'easyrider/src/components/Slider';
+import { slides } from './slides';
 
 const WelcomeScreen: React.FC = () => {
   const [t] = useLanguage();
@@ -25,7 +25,9 @@ const WelcomeScreen: React.FC = () => {
     return navigation.navigate(WelcomeStackRouteNames.LOGIN);
   }, [navigation]);
 
-  const handleSignUp = () => console.log('SIGNUP PRESSED');
+  const handleSignUp = useCallback(() => {
+    return navigation.navigate(WelcomeStackRouteNames.SIGNUP);
+  }, [navigation]);
 
   return (
     <AnimatedContainerFull
@@ -34,7 +36,7 @@ const WelcomeScreen: React.FC = () => {
     >
       <View className='flex-1 items-center justify-center h-full mx-20'>
         <ScrollContainer>
-          <Slider />
+          <Slider data={slides} />
           <View className='mt-20'>
             <AnimatedTextColor
               fontSize={FontSize.LARGE}
