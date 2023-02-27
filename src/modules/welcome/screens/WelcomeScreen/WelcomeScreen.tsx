@@ -14,6 +14,7 @@ import {
   WelcomeStackParamList,
   WelcomeStackRouteNames,
 } from 'easyrider/src/navigation/WelcomeStack/WelcomeStackParamList';
+import Slider from 'easyrider/src/components/Slider';
 
 const WelcomeScreen: React.FC = () => {
   const [t] = useLanguage();
@@ -33,16 +34,19 @@ const WelcomeScreen: React.FC = () => {
     >
       <View className='flex-1 items-center justify-center h-full mx-20'>
         <ScrollContainer>
-          <AnimatedTextColor
-            fontSize={FontSize.LARGE}
-            fontWeight={FontWeight.BOLD}
-            textCenter
-          >
-            {t('welcome')}
-          </AnimatedTextColor>
-          <AnimatedTextColor textCenter>
-            {t('welcomeDescription')}
-          </AnimatedTextColor>
+          <Slider />
+          <View className='mt-20'>
+            <AnimatedTextColor
+              fontSize={FontSize.LARGE}
+              fontWeight={FontWeight.BOLD}
+              textCenter
+            >
+              {t('welcome')}
+            </AnimatedTextColor>
+            <AnimatedTextColor textCenter>
+              {t('welcomeDescription')}
+            </AnimatedTextColor>
+          </View>
           <View className='mt-20 justify-center items-center'>
             <ButtonPrimary title={t('login')} onPress={handleLogin} />
             <ButtonPrimary

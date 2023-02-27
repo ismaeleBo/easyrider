@@ -1,11 +1,16 @@
+import { DarkPalette, LightPalette } from 'easyrider/src/assets/palette';
+import AnimatedContainerFull from 'easyrider/src/components/AnimatedContainerFull';
 import React from 'react';
 import { Text, View } from 'react-native';
 
 const LoginScreen = () => {
   return (
-    <View className='justify-center items-center h-full'>
+    <AnimatedContainerFull
+      colorLight={LightPalette.BackgroundPrimary}
+      colorDark={DarkPalette.BackgroundPrimary}
+    >
       <Text className='text-24'>Login Screen</Text>
-    </View>
+    </AnimatedContainerFull>
   );
 };
 
