@@ -1,13 +1,7 @@
 import { BaseColor } from 'easyrider/src/assets/palette/palette';
 import useAutoFocus from 'easyrider/src/hooks/useAutoFocus';
 import { useColorScheme } from 'nativewind';
-import React, {
-  Ref,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import React, { Ref, useCallback, useRef, useState } from 'react';
 import {
   NativeSyntheticEvent,
   Pressable,
@@ -16,7 +10,6 @@ import {
   TextInput as RNTextInput,
   TextInputFocusEventData,
   TextInputProps as RNTextInputProps,
-  View,
   ViewStyle,
 } from 'react-native';
 import Animated, {
