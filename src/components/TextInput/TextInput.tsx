@@ -81,7 +81,11 @@ const TextInput = (
   ref: TextInputRef,
 ) => {
   const textInputRef = useRef<RNTextInput>(null);
+
   const [active, setActive] = useState(false);
+
+  const { colorScheme } = useColorScheme();
+
   const minimized = useSharedValue(value?.length ? 1 : 0);
   const border = useSharedValue(BaseColor.LIGHT_YELLOW);
 
@@ -123,8 +127,6 @@ const TextInput = (
     });
   };
 
-  const { colorScheme } = useColorScheme();
-
   const placeholderContainerStyle: ViewStyle = {
     position: 'absolute',
     justifyContent: 'flex-end',
@@ -132,13 +134,7 @@ const TextInput = (
     paddingTop: 5,
   };
 
-  const placeholderContainerAnimatedStyle = useAnimatedStyle(
-    () => ({
-      top: minimized.value === 1 ? 0 : 15,
-    }),
-    [value],
-  );
-
+  // BORDER ANIMATION
   const borderAnimationStyle = useAnimatedStyle(() => {
     return {
       borderColor: border.value,
@@ -149,6 +145,7 @@ const TextInput = (
     color: BaseColor.DARK_GRAY,
   };
 
+  // PLACEHOLDER ANIMATION
   const placeholderTextAnimatedStyle = useAnimatedStyle(
     () => ({
       fontSize: interpolate(minimized.value, [0, 1], [12, 8]),
@@ -159,9 +156,7 @@ const TextInput = (
   return (
     <Pressable onPress={focusTextInput} style={{ marginBottom }}>
       <Animated.View style={[styles.container, borderAnimationStyle]}>
-        <Animated.View
-          style={[placeholderContainerStyle, placeholderContainerAnimatedStyle]}
-        >
+        <Animated.View style={[placeholderContainerStyle]}>
           <Animated.Text
             style={[placeholderTextStyle, placeholderTextAnimatedStyle]}
             numberOfLines={1}
@@ -192,7 +187,7 @@ const TextInput = (
 const styles = StyleSheet.create({
   textInput: {
     width: '100%',
-    marginTop: 10,
+    paddingVertical: 15,
   },
   container: {
     borderWidth: 2,
