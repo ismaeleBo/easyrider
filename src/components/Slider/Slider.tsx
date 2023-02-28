@@ -1,13 +1,19 @@
 import { useDebounceFn } from 'ahooks';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  View,
+} from 'react-native';
 import PagerView, {
   PagerViewOnPageScrollEvent,
   PagerViewOnPageSelectedEvent,
 } from 'react-native-pager-view';
 import AnimatedTextColor from '../AnimatedTextColor';
 import Indicator from '../Indicator';
-import { FontSize } from 'easyrider/src/assets/typgraphy';
+import { FontSize, FontWeight } from 'easyrider/src/assets/typgraphy';
 import { useLanguage } from 'easyrider/src/hooks/useLanguage';
 
 export interface Slide {
@@ -21,6 +27,7 @@ interface PagerProps {
 
 const Pager = ({ data }: PagerProps): JSX.Element => {
   const [t] = useLanguage();
+  const { height: dHeight } = Dimensions.get('window');
 
   const pagerRef = useRef<PagerView>(null);
   const [currentPagePosition, setCurrentPagePosition] = useState(0);
@@ -53,6 +60,18 @@ const Pager = ({ data }: PagerProps): JSX.Element => {
     [handleAutoScroll],
   );
 
+  const styles = StyleSheet.create({
+    pager: {
+      width: '100%',
+      height: dHeight * 0.35,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    image: {
+      height: dHeight * 0.2,
+    },
+  });
+
   const pages = useMemo(
     () =>
       data.map(({ title, image }, i) => (
@@ -61,9 +80,18 @@ const Pager = ({ data }: PagerProps): JSX.Element => {
           key={`page-${i.toString()}`}
           className='justify-center items-center'
         >
-          <Image source={image} resizeMode='contain' className='self-center' />
+          <Image
+            source={image}
+            resizeMode='contain'
+            className='self-center'
+            style={styles.image}
+          />
           <View className='mt-20 px-20'>
-            <AnimatedTextColor textCenter fontSize={FontSize.SMALL}>
+            <AnimatedTextColor
+              textCenter
+              fontSize={FontSize.SMALL}
+              fontWeight={FontWeight.SEMIBOLD}
+            >
               {t(title as never)}
             </AnimatedTextColor>
           </View>
@@ -71,15 +99,6 @@ const Pager = ({ data }: PagerProps): JSX.Element => {
       )),
     [data],
   );
-
-  const styles = StyleSheet.create({
-    pager: {
-      width: '100%',
-      height: 350,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
 
   return (
     <>

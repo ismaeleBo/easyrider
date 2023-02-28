@@ -11,4 +11,9 @@ export const LightPalette = {
 export const BaseColor = {
   WHITE: '#FBFBFB',
   BLACK: '#020100',
+  GRAY: '#EEE5E9',
+  DARK_GRAY: '#3D3B3C',
+  LIGHT_YELLOW: '#ECE2D0',
+  RED: '#EE4266',
+  GREEN: '#00A676',
 };

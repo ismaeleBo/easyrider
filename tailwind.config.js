@@ -13,14 +13,17 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-
       black: '#020100',
       white: '#FBFBFB',
-      red: '#EE4266',
-      yellow: '#FFDC46',
+      red: {
+        100: '#EE4266',
+        500: '#9B1D20',
+      },
+      yellow: { 100: '#ECE2D0', 300: '#FFDC46' },
       blue: {
         100: '#7F96FF',
         200: '#505AE6',
+        500: '#2E2D4D',
       },
       purple: '#5F00BA',
       gray: {
@@ -178,7 +181,7 @@ module.exports = {
       default: '1',
     },
     fontFamily: {
-      body: ['Quicksand', 'sans-serif'],
+      body: ['Dosis-Regular', 'sans-serif'],
     },
     fontSize: {
       12: '12px',

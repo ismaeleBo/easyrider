@@ -1,11 +1,14 @@
+import React from 'react';
 import { DarkPalette, LightPalette } from 'easyrider/src/assets/palette';
 import { FontSize } from 'easyrider/src/assets/typgraphy';
 import AnimatedContainerFull from 'easyrider/src/components/AnimatedContainerFull';
 import AnimatedTextColor from 'easyrider/src/components/AnimatedTextColor';
-import React from 'react';
+import { useLanguage } from 'easyrider/src/hooks/useLanguage';
 import { View } from 'react-native';
+import SignupForm from '../../components/SignupForm';
 
 const SignupScreen = () => {
+  const [t] = useLanguage();
   return (
     <AnimatedContainerFull
       colorLight={LightPalette.BackgroundPrimary}
@@ -13,8 +16,12 @@ const SignupScreen = () => {
     >
       <View className='justify-center items-center w-full h-full'>
         <AnimatedTextColor fontSize={FontSize.MEDIUM}>
-          Signup Screen
+          {t('signupTitle')}
         </AnimatedTextColor>
+        <AnimatedTextColor fontSize={FontSize.SMALL}>
+          {t('signupDescription')}
+        </AnimatedTextColor>
+        <SignupForm />
       </View>
     </AnimatedContainerFull>
   );

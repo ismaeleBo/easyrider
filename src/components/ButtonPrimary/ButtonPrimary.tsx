@@ -17,9 +17,10 @@ const ButtonPrimary = ({
   const buttonStyle = 'flex-row width-auto rounded-lg py-15 px-20 '.concat(
     customWrapper,
   );
-  const textStyle = 'text-22 uppercase text-center w-full font-bold '.concat(
-    customText,
-  );
+  const textStyle =
+    'text-22 uppercase text-center w-full font-bold font-body '.concat(
+      customText,
+    );
   return (
     <TouchableOpacity onPress={onPress} className={buttonStyle}>
       <Text className={textStyle}>{title}</Text>

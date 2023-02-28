@@ -9,4 +9,6 @@ export default {
   welcomeSlide4: 'Consenti di pagare tramite contactless senza bisogno del POS',
   login: 'Login',
   signUp: 'Sign up',
+  signupTitle: 'Cominciamo subito!',
+  signupDescription: 'Ci vorranno solo pochi minuti',
 };

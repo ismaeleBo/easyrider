@@ -1,5 +1,10 @@
 import { DarkPalette, LightPalette } from 'easyrider/src/assets/palette';
-import { FontSize, FontWeight } from 'easyrider/src/assets/typgraphy';
+import {
+  FontFamily,
+  FontSize,
+  FontWeight,
+  FontWeightType,
+} from 'easyrider/src/assets/typgraphy';
 import { AnimationTiming } from 'easyrider/src/assets/variables/variables';
 import { useColorScheme } from 'nativewind';
 import React, { ReactNode } from 'react';
@@ -17,7 +22,7 @@ export interface AnimatedTextColorProps {
   colorDark?: string;
   duration?: number;
   fontSize?: number;
-  fontWeight?: 'normal' | 'bold';
+  fontWeight?: FontWeightType;
   textCenter?: boolean;
 }
 
@@ -37,7 +42,12 @@ const AnimatedTextColor = ({
   });
 
   const styles = StyleSheet.create({
-    text: { fontSize, fontWeight, textAlign: textCenter ? 'center' : 'left' },
+    text: {
+      fontSize,
+      fontWeight,
+      fontFamily: FontFamily.DOSIS_REGULAR,
+      textAlign: textCenter ? 'center' : 'left',
+    },
   });
 
   const textStyle = useAnimatedStyle(() => {

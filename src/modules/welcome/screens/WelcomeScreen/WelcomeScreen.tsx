@@ -54,7 +54,7 @@ const WelcomeScreen: React.FC = () => {
             <ButtonPrimary
               title={t('signUp')}
               onPress={handleSignUp}
-              customWrapper='bg-red mt-20'
+              customWrapper='bg-red-100 mt-20'
               customText='text-white'
             />
           </View>

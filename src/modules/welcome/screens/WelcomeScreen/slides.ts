@@ -11,7 +11,7 @@ export const slides: Slide[] = [
     title: 'welcomeSlide1',
   },
   {
-    image: navigation,
+    image: app,
     title: 'welcomeSlide2',
   },
   {
