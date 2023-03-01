@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import ButtonPrimary from 'easyrider/src/components/ButtonPrimary';
 import ScrollContainer from 'easyrider/src/components/ScrollContainer';
 import { useLanguage } from 'easyrider/src/hooks/useLanguage';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { DarkPalette, LightPalette } from 'easyrider/src/assets/palette';
 import AnimatedContainerFull from 'easyrider/src/components/AnimatedContainerFull';
 import AnimatedTextColor from 'easyrider/src/components/AnimatedTextColor';
@@ -35,7 +35,7 @@ const WelcomeScreen: React.FC = () => {
       colorLight={LightPalette.BackgroundPrimary}
     >
       <View className='flex-1 items-center justify-center h-full mx-20'>
-        <ScrollContainer>
+        <ScrollContainer hFull>
           <Slider data={slides} />
           <View className='mt-20'>
             <AnimatedTextColor

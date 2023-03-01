@@ -4,6 +4,7 @@ import { FlexAlignType, ScrollView, StyleSheet } from 'react-native';
 interface ScrollContainerProps {
   children: ReactNode;
   alignItems?: FlexAlignType;
+  hFull?: boolean;
   justifyContent?:
     | 'flex-start'
     | 'flex-end'
@@ -17,10 +18,11 @@ const ScrollContainer = ({
   children,
   alignItems = 'center',
   justifyContent = 'center',
+  hFull = false,
 }: ScrollContainerProps): JSX.Element => {
   const style = StyleSheet.create({
     scrollView: {
-      height: '100%',
+      height: hFull ? '100%' : undefined,
       display: 'flex',
       alignItems,
       justifyContent,

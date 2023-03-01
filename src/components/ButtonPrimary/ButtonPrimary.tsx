@@ -1,9 +1,10 @@
-import React, { Children, ReactNode } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 export interface ButtonPrimaryProps {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
   customWrapper?: string;
   customText?: string;
 }
@@ -11,6 +12,7 @@ export interface ButtonPrimaryProps {
 const ButtonPrimary = ({
   title,
   onPress,
+  disabled = false,
   customWrapper = 'bg-white',
   customText = 'text-black',
 }: ButtonPrimaryProps): JSX.Element => {
@@ -22,7 +24,12 @@ const ButtonPrimary = ({
       customText,
     );
   return (
-    <TouchableOpacity onPress={onPress} className={buttonStyle}>
+    <TouchableOpacity
+      onPress={onPress}
+      className={buttonStyle}
+      style={{ opacity: disabled ? 0.4 : 1 }}
+      disabled={disabled}
+    >
       <Text className={textStyle}>{title}</Text>
     </TouchableOpacity>
   );

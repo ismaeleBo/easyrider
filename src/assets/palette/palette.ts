@@ -16,4 +16,7 @@ export const BaseColor = {
   LIGHT_YELLOW: '#ECE2D0',
   RED: '#EE4266',
   GREEN: '#00A676',
+  LIGHT_BLUE: '#7F96FF',
+  BLUE: '#505AE6',
+  DARK_BLUE: '#2E2D4D',
 };

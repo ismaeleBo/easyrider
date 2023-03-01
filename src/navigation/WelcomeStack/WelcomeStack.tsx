@@ -17,6 +17,7 @@ const WelcomeStack: React.FC = () => {
       screenOptions={{
         header: AppHeader,
         headerTransparent: true,
+        animation: 'slide_from_right',
       }}
     >
       <Stack.Screen

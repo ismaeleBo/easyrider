@@ -1,7 +1,7 @@
 import { BaseColor } from 'easyrider/src/assets/palette/palette';
-import useAutoFocus from 'easyrider/src/hooks/useAutoFocus';
+import { FontSize, FontWeight } from 'easyrider/src/assets/typgraphy';
 import { useColorScheme } from 'nativewind';
-import React, { Ref, useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
   NativeSyntheticEvent,
   Pressable,
@@ -10,18 +10,13 @@ import {
   TextInput as RNTextInput,
   TextInputFocusEventData,
   TextInputProps as RNTextInputProps,
-  ViewStyle,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
-
-type TextInputRef = Ref<{ focus: () => void }>;
-
-const ANIMATION_DURATION = 180;
+import AnimatedTextColor from '../AnimatedTextColor';
+import { SvgXml } from 'react-native-svg';
+import eye from '../../assets/icons/eye.svg';
+import eyeClose from '../../assets/icons/eye-close.svg';
 
 const DO_NOTHING = () => {
   /* empty */
@@ -42,6 +37,7 @@ type RNTextInputPropsWithoutOverrides = Omit<
 
 export interface TextInputProps extends RNTextInputPropsWithoutOverrides {
   value?: string;
+  title?: string;
   placeholder?: string;
   errorMessage?: string;
   hint?: string;
@@ -49,6 +45,7 @@ export interface TextInputProps extends RNTextInputPropsWithoutOverrides {
   iconSize?: number;
   disabled?: boolean;
   iconDisabled?: boolean;
+  password?: boolean;
   onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onChangeText?: (text: string) => void;
@@ -57,113 +54,96 @@ export interface TextInputProps extends RNTextInputPropsWithoutOverrides {
   marginBottom?: number;
 }
 
-const TextInput = (
-  {
-    autoFocus,
-    value = '',
-    placeholder = '',
-    errorMessage = undefined,
-    hint = undefined,
-    iconName = undefined,
-    iconSize = 26,
-    disabled = false,
-    iconDisabled = false,
-    maxLength,
-    onChangeText = DO_NOTHING,
-    onBlur = DO_NOTHING,
-    onFocus = DO_NOTHING,
-    onPressIcon = DO_NOTHING,
-    showMaxLengthHint,
-    autoCapitalize,
-    marginBottom,
-    ...rest
-  }: TextInputProps,
-  ref: TextInputRef,
-) => {
+const TextInput = ({
+  autoFocus,
+  value = '',
+  placeholder = '',
+  title = '',
+  errorMessage = undefined,
+  hint = undefined,
+  iconName = undefined,
+  iconSize = 26,
+  disabled = false,
+  iconDisabled = false,
+  maxLength,
+  onChangeText = DO_NOTHING,
+  onBlur = DO_NOTHING,
+  onFocus = DO_NOTHING,
+  onPressIcon = DO_NOTHING,
+  showMaxLengthHint,
+  autoCapitalize,
+  marginBottom,
+  password = false,
+  ...rest
+}: TextInputProps) => {
   const textInputRef = useRef<RNTextInput>(null);
 
-  const [active, setActive] = useState(false);
+  const [touched, setTouched] = useState(false);
+  const [hidePassword, setHidePassword] = useState(password);
 
   const { colorScheme } = useColorScheme();
-
-  const minimized = useSharedValue(value?.length ? 1 : 0);
-  const border = useSharedValue(BaseColor.LIGHT_YELLOW);
+  const isDark = colorScheme === 'dark';
 
   const handleBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    setActive(false);
-    border.value = withTiming(BaseColor.LIGHT_YELLOW, {
-      duration: ANIMATION_DURATION,
-    });
+    setTouched(true);
     onBlur(event);
-    if (!value) {
-      restorePlaceholder();
-    }
   };
 
   const handleFocus = (
     event: NativeSyntheticEvent<TextInputFocusEventData>,
   ) => {
-    setActive(true);
-    border.value = withTiming(BaseColor.GREEN, {
-      duration: ANIMATION_DURATION,
-    });
     onFocus(event);
-    if (!value) {
-      minimizePlaceholder();
-    }
+  };
+
+  const handleChangeText = (value: string) => {
+    onChangeText(value);
   };
 
   const focusTextInput = useCallback(() => textInputRef.current?.focus(), []);
 
-  const minimizePlaceholder = () => {
-    minimized.value = withTiming(1, {
-      duration: ANIMATION_DURATION,
-    });
-  };
-
-  const restorePlaceholder = () => {
-    minimized.value = withTiming(0, {
-      duration: ANIMATION_DURATION,
-    });
-  };
-
-  const placeholderContainerStyle: ViewStyle = {
-    position: 'absolute',
-    justifyContent: 'flex-end',
-    marginHorizontal: 5,
-    paddingTop: 5,
-  };
-
-  // BORDER ANIMATION
-  const borderAnimationStyle = useAnimatedStyle(() => {
-    return {
-      borderColor: border.value,
-    };
+  const styles = StyleSheet.create({
+    textInput: {
+      width: '100%',
+      paddingVertical: 15,
+    },
+    container: {
+      borderWidth: 1,
+      width: '100%',
+      borderColor:
+        touched && errorMessage ? BaseColor.RED : BaseColor.LIGHT_YELLOW,
+      backgroundColor: BaseColor.LIGHT_YELLOW,
+      borderRadius: 8,
+      paddingHorizontal: 10,
+      marginTop: 10,
+    },
   });
 
-  const placeholderTextStyle = {
-    color: BaseColor.DARK_GRAY,
+  const handleShowPassword = () => {
+    setHidePassword(!hidePassword);
   };
-
-  // PLACEHOLDER ANIMATION
-  const placeholderTextAnimatedStyle = useAnimatedStyle(
-    () => ({
-      fontSize: interpolate(minimized.value, [0, 1], [12, 8]),
-    }),
-    [active, value],
-  );
 
   return (
     <Pressable onPress={focusTextInput} style={{ marginBottom }}>
-      <Animated.View style={[styles.container, borderAnimationStyle]}>
-        <Animated.View style={[placeholderContainerStyle]}>
-          <Animated.Text
-            style={[placeholderTextStyle, placeholderTextAnimatedStyle]}
-            numberOfLines={1}
-          >
-            <Text>{placeholder}</Text>
-          </Animated.Text>
-        </Animated.View>
+      <View className='flex-row justify-between items-center'>
+        <AnimatedTextColor
+          fontWeight={FontWeight.MEDIUM}
+          fontSize={FontSize.MEDIUM}
+        >
+          {title}
+        </AnimatedTextColor>
+        {password && (
+          <TouchableOpacity onPress={handleShowPassword}>
+            <SvgXml
+              xml={hidePassword ? eye : eyeClose}
+              width={32}
+              height={32}
+              fill={isDark ? BaseColor.WHITE : ''}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+
+      <View style={styles.container}>
         <RNTextInput
           {...rest}
           ref={textInputRef}
@@ -172,30 +152,22 @@ const TextInput = (
           style={styles.textInput}
           onBlur={handleBlur}
           onFocus={handleFocus}
-          onChangeText={onChangeText}
+          onChangeText={handleChangeText}
           disableFullscreenUI
           enablesReturnKeyAutomatically
           keyboardAppearance={colorScheme}
           maxLength={maxLength}
           autoCapitalize={autoCapitalize}
+          secureTextEntry={hidePassword}
         />
-      </Animated.View>
+      </View>
+      {errorMessage && touched && (
+        <Text className='text-red-500 text-14 font-medium mt-8'>
+          {errorMessage}
+        </Text>
+      )}
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  textInput: {
-    width: '100%',
-    paddingVertical: 15,
-  },
-  container: {
-    borderWidth: 2,
-    width: '100%',
-    backgroundColor: BaseColor.LIGHT_YELLOW,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-  },
-});
 
 export default TextInput;

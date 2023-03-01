@@ -11,4 +11,14 @@ export default {
   signUp: 'Sign up',
   signupTitle: 'Cominciamo subito!',
   signupDescription: 'Ci vorranno solo pochi minuti',
+  mandatoryFieldError: 'Il campo {{name}} è obbligatorio',
+  name: 'Nome',
+  surname: 'Cognome',
+  email: 'Email',
+  password: 'Password',
+  confirmPassword: 'Conferma password',
+  passwordLengthError:
+    'La password deve essere lunga almeno {{minLength}} caratteri',
+  confirmPasswordError: 'Per favore conferma la password',
+  confirmPasswordNotValid: 'Le password non corrispondono',
 };
