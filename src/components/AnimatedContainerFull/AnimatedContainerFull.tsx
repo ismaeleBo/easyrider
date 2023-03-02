@@ -1,3 +1,4 @@
+import { DarkPalette, LightPalette } from 'easyrider/src/assets/palette';
 import { AnimationTiming } from 'easyrider/src/assets/variables/variables';
 import { useColorScheme } from 'nativewind';
 import React, { ReactNode } from 'react';
@@ -10,15 +11,15 @@ import Animated, {
 
 interface AnimatedContainerFullProps {
   children: ReactNode;
-  colorLight: string;
-  colorDark: string;
+  colorLight?: string;
+  colorDark?: string;
   duration?: number;
 }
 
 const AnimatedContainerFull = ({
   children,
-  colorLight,
-  colorDark,
+  colorLight = LightPalette.BackgroundPrimary,
+  colorDark = DarkPalette.BackgroundPrimary,
   duration = AnimationTiming.BASE,
 }: AnimatedContainerFullProps): JSX.Element => {
   const { colorScheme } = useColorScheme();
