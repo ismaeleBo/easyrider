@@ -1,9 +1,9 @@
-export const WelcomeStackRouteNames = {
-  WELCOME: 'Welcome',
-  LOGIN: 'Login',
-  SIGNUP: 'Signup',
-  SIGNUP_SUCCESS: 'SignupSuccess',
-} as const;
+export enum WelcomeStackRouteNames {
+  WELCOME = 'Welcome',
+  LOGIN = 'Login',
+  SIGNUP = 'Signup',
+  SIGNUP_SUCCESS = 'SignupSuccess',
+}
 
 export type WelcomeStackParamList = {
   [WelcomeStackRouteNames.WELCOME]: undefined;

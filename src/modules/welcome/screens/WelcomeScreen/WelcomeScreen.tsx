@@ -7,8 +7,7 @@ import { DarkPalette, LightPalette } from 'easyrider/src/assets/palette';
 import AnimatedContainerFull from 'easyrider/src/components/AnimatedContainerFull';
 import AnimatedTextColor from 'easyrider/src/components/AnimatedTextColor';
 import { FontSize, FontWeight } from 'easyrider/src/assets/typgraphy';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   WelcomeStackParamList,
   WelcomeStackRouteNames,
@@ -16,10 +15,10 @@ import {
 import Slider from 'easyrider/src/components/Slider';
 import { slides } from './slides';
 
-const WelcomeScreen: React.FC = () => {
+const WelcomeScreen: React.FC<
+  NativeStackScreenProps<WelcomeStackParamList, WelcomeStackRouteNames.WELCOME>
+> = ({ navigation }) => {
   const [t] = useLanguage();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<WelcomeStackParamList>>();
 
   const handleLogin = useCallback(() => {
     return navigation.navigate(WelcomeStackRouteNames.LOGIN);

@@ -1,5 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FontSize, FontWeight } from 'easyrider/src/assets/typgraphy';
 import AnimatedContainerFull from 'easyrider/src/components/AnimatedContainerFull';
 import AnimatedTextColor from 'easyrider/src/components/AnimatedTextColor';
@@ -12,10 +11,12 @@ import {
 import React from 'react';
 import { View } from 'react-native';
 
-const SignupSuccessScreen = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<WelcomeStackParamList>>();
-
+const SignupSuccessScreen: React.FC<
+  NativeStackScreenProps<
+    WelcomeStackParamList,
+    WelcomeStackRouteNames.SIGNUP_SUCCESS
+  >
+> = ({ navigation }) => {
   const handleSubmit = () => {
     navigation.navigate(WelcomeStackRouteNames.LOGIN);
   };
